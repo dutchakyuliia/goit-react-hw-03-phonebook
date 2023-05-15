@@ -13,20 +13,25 @@ export class CreateContacts extends Component {
     this.setState({ number: evt.target.value });
   };
 
+
   handleSubmit = e => {
+    const newContact = {
+      name: this.state.name,
+      number: this.state.number,
+      id: nanoid()
+    };
     if (!this.props.contacts.some(contact => contact.name.toLowerCase() === this.state.name.toLowerCase())) {
-      this.props.saveContact({
-        name: this.state.name,
-        number: this.state.number,
-        id: nanoid(),
-      });
+      this.props.saveContact(newContact);
+     
       this.reset()
     } else {
       alert('Name is already in contacts');
     }
-
     e.preventDefault();
+    
   };
+
+
   reset = () => {this.setState({name: '', number: ''}) };
 
   render() {
